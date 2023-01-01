@@ -6,13 +6,14 @@
 #    By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 16:01:21 by mannahri          #+#    #+#              #
-#    Updated: 2022/12/29 15:32:32 by mannahri         ###   ########.fr        #
+#    Updated: 2023/01/01 08:15:53 by mannahri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-src = main.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c \
-./parsing/read_check_map.c ./parsing/read_check_map0.c ./parsing/read_check_map1.c ./parsing/read_check_map2.c ./parsing/read_check_map3.c ./parsing/read_check_map4.c\
-./libft/*.c 
+src = main.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c\
+./parsing/read_check_map.c ./parsing/read_check_map0.c ./parsing/read_check_map1.c \
+./parsing/read_check_map2.c ./parsing/read_check_map3.c ./parsing/read_check_map4.c\
+./parsing/parsing.c ./libft/*.c 
 cub3d = cub3d
 SANITIZE = -g -fsanitize=address
 FLAGS = -Wall -Wextra -Werror

@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2022/12/28 12:01:18 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/01 08:20:26 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct cub
 	char	*so_file;
 	char	*we_file;
 	char	*ea_file;
+	// int		player_pos_x;
+	// int		player_pos_y;
+	// int		start_rot_ang;
 }	t_cub;
 
 //get_next_line and some utils
@@ -42,6 +45,7 @@ char	*ft_substr_line(char *str, int start, int len);
 char	*get_next_line(int fd);
 
 //read and check the map
+t_cub	*parsing(int ac, char *av[]);
 t_cub	*handling_map(char *av[], t_cub *cub);
 int		ft_length(char *last, char *cub);
 void	check_last_is_cub(char *av[]);

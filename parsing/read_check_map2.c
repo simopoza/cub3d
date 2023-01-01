@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:25:25 by mannahri          #+#    #+#             */
-/*   Updated: 2022/12/29 15:27:36 by mannahri         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:46:25 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	check_valid_file(char *line, int i, t_cub *cub, char *identifier)
 		printf ("Error in the map file\n");
 		exit (1);
 	}
-	fd = open(file, O_RDONLY);
+	fd = open(file, O_RDONLY, 0664);
 	if (fd < 0)
 	{
 		printf ("Error in u know file.,.,.\n");
