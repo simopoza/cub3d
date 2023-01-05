@@ -31,16 +31,16 @@ int map_rows(t_cub *cub)
 	return i;
 }
 
-void	draw_img(t_img *img, int x, int y, int color)
+void	draw_img(t_img *img, int x, int y, int color , int size)
 {
 	char    *draw;
 
-	for(int i = x; i < x  + 30 ;i++)
+	for(int i = x; i < x  + size ;i++)
 	{
-		for(int j = y; j <y + 30 ;j++)
+		for(int j = y; j <y + size ;j++)
 		{
 			draw = img->ImgAddr + (j * img->BytesInRow + i * (img->BytesInPx / 8));
-			if(i != 0 && j != 0 && i != x + 29 && j != y + 29)
+			if(i != 0 && j != 0 && i != x + size - 1 && j != y + size - 1)
 				*(int *)draw = color;
 		}
 	}
@@ -57,7 +57,7 @@ void render_map(t_img *img, char **map)
 		while (map[i][j])
 		{
 			if(map[i][j] == '1')
-				draw_img(img, j*30, i*30, 0xEEE6E4);
+				draw_img(img, j*30, i*30, 0xEEE6E4, 30);
 			j++;
 		}
 		i++;
@@ -66,7 +66,7 @@ void render_map(t_img *img, char **map)
 
 void render_player(t_window *wnd)
 {
-	draw_img(&wnd->img, wnd->WINDOW_WIDTH/2, wnd->WINDOW_HEIGHT/2, 0xFF0000 );
+	draw_img(&wnd->img, wnd->WINDOW_WIDTH/2, wnd->WINDOW_HEIGHT/2, 0xFF0000, 10);
 }
 
 int	render(t_window *wnd)

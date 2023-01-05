@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/05 21:08:09 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/05 21:21:58 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_rgb(char *line, int i, t_cub *cub, char color);
 // 2D map
 int	map_columns(t_cub *cub);
 int map_rows(t_cub *cub);
-void	draw_img(t_img *img, int x, int y, int color);
+void	draw_img(t_img *img, int x, int y, int color, int size);
 void render_map(t_img *img, char **map);
 int	render(t_window *wnd);
 void init_window(t_window *window);
