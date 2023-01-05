@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/01 08:20:26 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/05 21:08:09 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
+#include "mlx.h"
 
 typedef struct cub
 {
@@ -32,10 +33,29 @@ typedef struct cub
 	char	*so_file;
 	char	*we_file;
 	char	*ea_file;
-	// int		player_pos_x;
-	// int		player_pos_y;
-	// int		start_rot_ang;
+	int		map_width;
+	int		map_height;
 }	t_cub;
+
+typedef struct s_img
+{
+	void	*MlxImg;
+	char	*ImgAddr;
+	int		BytesInPx; /* bits per pixel */
+	int		BytesInRow;//number of bytes in each row
+	int		endian; //??
+}	t_img;
+
+typedef struct s_window
+{
+	void *mlx;
+	void *mlx_win;
+	t_img img;
+	int WINDOW_WIDTH ;
+	int WINDOW_HEIGHT;
+	t_cub *cub;
+}	t_window;
+
 
 //get_next_line and some utils
 int		ft_strlen_line(char *str);
@@ -63,5 +83,15 @@ int		ft_check_last_line(char *line);
 int		ft_strlen_double(char **str);
 int		mine_strncmp(const char *s1, const char *s2, size_t n, size_t i);
 void	check_rgb(char *line, int i, t_cub *cub, char color);
+
+// 2D map
+int	map_columns(t_cub *cub);
+int map_rows(t_cub *cub);
+void	draw_img(t_img *img, int x, int y, int color);
+void render_map(t_img *img, char **map);
+int	render(t_window *wnd);
+void init_window(t_window *window);
+void print_error(char *msg);
+void render_player(t_window *wnd);
 
 #endif
