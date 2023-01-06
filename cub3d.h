@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/05 21:21:58 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/06 21:11:37 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 #include "mlx.h"
+#include "math.h"
 
 typedef struct cub
 {
@@ -46,15 +47,28 @@ typedef struct s_img
 	int		endian; //??
 }	t_img;
 
-typedef struct s_window
+typedef struct s_player
+{
+	int x_pos;
+	int y_pos;
+	int turn_direction ;
+	int walk_direction ;
+	int walk_speed;
+	int turn_speed;
+	int walk_step;
+	int turn_step;
+}t_player;
+
+typedef struct s_infos
 {
 	void *mlx;
 	void *mlx_win;
 	t_img img;
 	int WINDOW_WIDTH ;
 	int WINDOW_HEIGHT;
-	t_cub *cub;
-}	t_window;
+	char **map;
+	t_player player;
+}	t_infos;
 
 
 //get_next_line and some utils
@@ -78,20 +92,21 @@ void	check_valid_file(char *line, int i, t_cub *cub, char *identifier);
 int		check_char(char c);
 void	check_the_map(t_cub *cub);
 int		check_player(char c);
-int		check_zero(char c);
+int		check_zero(char c); 
 int		ft_check_last_line(char *line);
 int		ft_strlen_double(char **str);
 int		mine_strncmp(const char *s1, const char *s2, size_t n, size_t i);
 void	check_rgb(char *line, int i, t_cub *cub, char color);
 
 // 2D map
-int	map_columns(t_cub *cub);
-int map_rows(t_cub *cub);
+int	map_columns(char **map);
+int map_rows(char **map);
 void	draw_img(t_img *img, int x, int y, int color, int size);
 void render_map(t_img *img, char **map);
-int	render(t_window *wnd);
-void init_window(t_window *window);
+int	render(t_infos *wnd);
+void init_window(t_infos *info);
 void print_error(char *msg);
-void render_player(t_window *wnd);
-
+void render_player(t_infos *wnd);
+void move(t_infos *info);
+void drawline(t_infos *wnd, int x0, int y0, int x1, int y1);
 #endif

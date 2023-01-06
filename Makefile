@@ -6,14 +6,14 @@
 #    By: flouta <flouta@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 16:01:21 by mannahri          #+#    #+#              #
-#    Updated: 2023/01/03 18:54:22 by flouta           ###   ########.fr        #
+#    Updated: 2023/01/06 13:51:03 by flouta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 src = main.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c\
 ./parsing/read_check_map.c ./parsing/read_check_map0.c ./parsing/read_check_map1.c \
 ./parsing/read_check_map2.c ./parsing/read_check_map3.c ./parsing/read_check_map4.c\
-./parsing/parsing.c ./libft/*.c ./RayCasting/Map_2d.c
+./parsing/parsing.c ./libft/*.c ./RayCasting/Map_2d.c ./RayCasting/player.c
 cub3d = cub3d
 SANITIZE = -g -fsanitize=address
 FLAGS = -Wall -Wextra -Werror  -lmlx -framework OpenGL -framework AppKit

@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 3022/12/23 16:01:48 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/05 20:25:00 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/06 21:34:43 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,37 @@
 
 
 
+// int	handle_keypress(int keysym, t_infos *data)
+// {
+// 	if(keysym == 123)//left
+// 		data->player.turn_direction = -1;
+// 	if(keysym == 124)//right
+// 		data->player.turn_direction = 1;
+// 	if(keysym == 125)//down
+// 		data->player.walk_direction = -1;
+// 	if(keysym == 126)//up
+// 		data->player.walk_direction = 1;
+// 	move(data);
+// 	render(data);
+// 	return (0);
+// }
+
 int	main(int ac, char *av[])
 {
 	t_cub	*cub;
-	t_window window;
+	t_infos data;
 
 	cub = parsing(ac, av);
-	window.cub = cub;
-	init_window(&window);
-	mlx_loop_hook(window.mlx, &render, &window);
-	mlx_loop(window.mlx);
-	//mlx_destroy_window(mlx, mlx_win);
-	//free(mlx);
-	//system("leaks cub3d");
+	data.map = cub->the_map;
+	init_window(&data);
+	//mlx_hook(data.mlx_win, 2, (1L<<0), &handle_keypress, &data);
+	mlx_loop_hook(data.mlx, &render, &data);
+	mlx_loop(data.mlx);
+	mlx_destroy_window(data.mlx, data.mlx_win);
+	free(data.mlx);
 	return (0);
 }
+
+//events
+//update
+//render
