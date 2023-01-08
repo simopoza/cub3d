@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/08 01:20:29 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/08 17:04:05 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ typedef struct cub
 	char	*ea_file;
 	int		map_width;
 	int		map_height;
+	int		player_pos_x;
+	int		player_pos_y;
+	char	char_player;
 }	t_cub;
 
 typedef struct s_img

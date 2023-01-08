@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 3022/12/23 16:01:48 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/08 01:33:16 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/08 17:05:01 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int ac, char *av[])
 	mlx_hook(data.mlx_win, 2, 0, &handle_keypress, &data);
 	mlx_loop_hook(data.mlx, &render, &data);
 	mlx_hook(data.mlx_win, 3, 0, &handle_keyrelease, &data);
+	printf ("char of player is : %c\npos_x of player : %d\npos_y of player : %d\n", cub->char_player, cub->player_pos_x, cub->player_pos_y);
 	mlx_loop(data.mlx);
 	mlx_destroy_window(data.mlx, data.mlx_win);
 	free(data.mlx);

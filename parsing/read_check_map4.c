@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:52:28 by mannahri          #+#    #+#             */
-/*   Updated: 2022/12/29 15:27:36 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:04:32 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ int	its_just_for_the_norm(t_cub *cub, int j, int i, int player)
 	if (cub->the_map[i][j] == 'N' || cub->the_map[i][j] == 'E' \
 	|| cub->the_map[i][j] == 'S' || cub->the_map[i][j] == 'W')
 	{
+		if (cub->the_map[i][j] == 'N')
+			cub->char_player = 'N';
+		if (cub->the_map[i][j] == 'S')
+			cub->char_player = 'S';
+		if (cub->the_map[i][j] == 'E')
+			cub->char_player = 'E';
+		if (cub->the_map[i][j] == 'W')
+			cub->char_player = 'W';
+		cub->player_pos_x = j;
+		cub->player_pos_y = i;
 		player++;
 		ft_player(cub, j, i);
 	}
