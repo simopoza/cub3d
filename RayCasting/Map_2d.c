@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/06 21:32:32 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:07:58 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_img(t_img *img, int x, int y, int color , int size)
 				if(size == 0 || (i != 0 && j != 0 && i != x + size - 1 && j != y + size - 1))
 					*(int *)draw = color;
 				else
-					*(int *)draw = 0x000000;
+					*(int *)draw = 0x00FF00;
 			}else
 				*(int *)draw = color;
 		}
@@ -75,9 +75,9 @@ void render_map(t_img *img, char **map)
 		while (map[i][j])
 		{
 			if(map[i][j] == '1')
-				draw_img(img, j*30, i*30, 0xEEE6E4, 30);
-			if(map[i][j] == '0')
-				draw_img(img, j*30, i*30, 0x000000, 30);
+				draw_img(img, j*60, i*60, 0xEEE6E4, 60);
+			if(map[i][j] == '0' || map[i][j] == 'N')
+				draw_img(img, j*60, i*60, 0x000000, 60);
 			j++;
 		}
 		i++;
@@ -86,10 +86,11 @@ void render_map(t_img *img, char **map)
 
 int	render(t_infos *wnd)
 {
-	//move(wnd);
+	//mlx_clear_window(wnd->mlx, wnd->mlx_win);
 	render_map(&wnd->img, wnd->map);
 	render_player(wnd);
 	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
+	
 	return (0);
 }
 
@@ -100,8 +101,8 @@ void print_error(char *msg)
 }
 void init_window(t_infos *data)
 {
-	data->WINDOW_WIDTH = map_columns(data->map) * 30;
-	data->WINDOW_HEIGHT = map_rows(data->map) * 30;
+	data->WINDOW_WIDTH = map_columns(data->map) * 60;
+	data->WINDOW_HEIGHT = map_rows(data->map) * 60;
 	data->mlx = mlx_init();
 	if(!data->mlx)
 		print_error("ERROR: mlx init failed\n");
@@ -118,9 +119,8 @@ void init_window(t_infos *data)
 	data->player.y_pos = data->WINDOW_HEIGHT/2;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
-	data->player.walk_speed = 20;
-	data->player.turn_speed = 30 * (M_PI / 180);
+	data->player.walk_speed = 50;
+	data->player.turn_speed = 45 * (M_PI/180);
 	data->player.walk_step = 0;
-	data->player.turn_step = M_PI /-2;
-
+	data->player.turn_step = 90 * (M_PI/180);
 }

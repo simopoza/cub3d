@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/06 21:11:37 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:20:29 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int x_pos;
-	int y_pos;
-	int turn_direction ;
-	int walk_direction ;
-	int walk_speed;
-	int turn_speed;
-	int walk_step;
-	int turn_step;
+	float	x_pos;
+	float	y_pos;
+	int	turn_direction ;
+	int	walk_direction ;
+	float	walk_speed;
+	float	turn_speed;
+	float	walk_step;
+	float	turn_step;
 }t_player;
 
 typedef struct s_infos
@@ -107,6 +107,6 @@ int	render(t_infos *wnd);
 void init_window(t_infos *info);
 void print_error(char *msg);
 void render_player(t_infos *wnd);
-void move(t_infos *info);
-void drawline(t_infos *wnd, int x0, int y0, int x1, int y1);
+void move(t_infos *info, int flag);
+void drawline(t_infos *wnd,float  x0, float y0, float x1, float y1);
 #endif
