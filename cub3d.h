@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/08 17:04:05 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/09 18:29:47 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ typedef struct s_img
 {
 	void	*MlxImg;
 	char	*ImgAddr;
-	int		BytesInPx; /* bits per pixel */
-	int		BytesInRow;//number of bytes in each row
-	int		endian; //??
+	int		BytesInPx; //number of bits needed to represent a pixel color (also called the depth of the image).
+	int		BytesInRow;//is the number of bytes used to store one line of the image in memory.
+	int		endian; //tells you wether the pixel color in the image needs to be stored in :little (endian == 0), or big (endian == 1).
 }	t_img;
 
 typedef struct s_player
@@ -69,6 +69,7 @@ typedef struct s_infos
 	t_img img;
 	int WINDOW_WIDTH ;
 	int WINDOW_HEIGHT;
+	int SCALE;
 	char **map;
 	t_player player;
 }	t_infos;
@@ -105,11 +106,15 @@ void	check_rgb(char *line, int i, t_cub *cub, char color);
 int	map_columns(char **map);
 int map_rows(char **map);
 void	draw_img(t_img *img, int x, int y, int color, int size);
-void render_map(t_img *img, char **map);
+void render_map(t_infos *data);
 int	render(t_infos *wnd);
-void init_window(t_infos *info);
+void init_window(t_infos *info, t_cub *cub);
 void print_error(char *msg);
+//player
 void render_player(t_infos *wnd);
 void move(t_infos *info, int flag);
 void drawline(t_infos *wnd,float  x0, float y0, float x1, float y1);
+//player moves
+int	handle_keypress(int keysym, t_infos *data);
+int	handle_keyrelease(int keysym, t_infos *data);
 #endif

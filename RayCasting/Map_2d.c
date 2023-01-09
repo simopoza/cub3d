@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/08 01:07:58 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/09 19:23:18 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,20 @@ void	draw_img(t_img *img, int x, int y, int color , int size)
 	}
 }
 
-void render_map(t_img *img, char **map)
+void render_map(t_infos *data)
 {
 	int	i = 0;
 	int j = 0;
 
-	while (map[i])
+	while (data->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (data->map[i][j])
 		{
-			if(map[i][j] == '1')
-				draw_img(img, j*60, i*60, 0xEEE6E4, 60);
-			if(map[i][j] == '0' || map[i][j] == 'N')
-				draw_img(img, j*60, i*60, 0x000000, 60);
+			if(data->map[i][j] == '1')
+				draw_img(&data->img, j * data->SCALE, i * data->SCALE, 0xEEE6E4, data->SCALE);
+			if(data->map[i][j] == '0' || data->map[i][j] == 'N' ||  data->map[i][j] == 'S' ||  data->map[i][j] == 'E' ||  data->map[i][j] == 'W')//mod
+				draw_img(&data->img, j * data->SCALE, i * data->SCALE, 0x000000, data->SCALE);
 			j++;
 		}
 		i++;
@@ -86,11 +86,16 @@ void render_map(t_img *img, char **map)
 
 int	render(t_infos *wnd)
 {
-	//mlx_clear_window(wnd->mlx, wnd->mlx_win);
-	render_map(&wnd->img, wnd->map);
+	wnd->img.MlxImg = mlx_new_image(wnd->mlx, wnd->WINDOW_WIDTH, wnd->WINDOW_HEIGHT);
+	if(!wnd->img.MlxImg )
+		print_error("ERROR: image init failed\n");
+	wnd->img.ImgAddr = mlx_get_data_addr(wnd->img.MlxImg, &wnd->img.BytesInPx, &wnd->img.BytesInRow, &wnd->img.endian);
+	if(!wnd->img.ImgAddr )
+		print_error("ERROR: image info init failed\n");
+	render_map(wnd);
 	render_player(wnd);
 	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
-	
+	mlx_destroy_image(wnd->mlx, wnd->img.MlxImg);
 	return (0);
 }
 
@@ -99,28 +104,31 @@ void print_error(char *msg)
 	write(2,msg,ft_strlen(msg));
 	exit(1);
 }
-void init_window(t_infos *data)
+void init_window(t_infos *data, t_cub *cub)
 {
-	data->WINDOW_WIDTH = map_columns(data->map) * 60;
-	data->WINDOW_HEIGHT = map_rows(data->map) * 60;
+	data->map = cub->the_map;
+	data->SCALE = 60;
+	data->WINDOW_WIDTH = map_columns(data->map) * data->SCALE;
+	data->WINDOW_HEIGHT = map_rows(data->map) *  data->SCALE;
 	data->mlx = mlx_init();
 	if(!data->mlx)
 		print_error("ERROR: mlx init failed\n");
 	data->mlx_win = mlx_new_window(data->mlx,  data->WINDOW_WIDTH,data->WINDOW_HEIGHT, "Cub3d");
 	if(!data->mlx_win)
 		print_error("ERROR: window init failed\n");
-	data->img.MlxImg = mlx_new_image(data->mlx, data->WINDOW_WIDTH, data->WINDOW_HEIGHT);
-	if(!data->img.MlxImg )
-		print_error("ERROR: image init failed\n");
-	data->img.ImgAddr = mlx_get_data_addr(data->img.MlxImg, &data->img.BytesInPx, &data->img.BytesInRow, &data->img.endian);
-	if(!data->img.ImgAddr )
-		print_error("ERROR: image info init failed\n");
-	data->player.x_pos = data->WINDOW_WIDTH/2;
-	data->player.y_pos = data->WINDOW_HEIGHT/2;
+	data->player.x_pos = cub->player_pos_x * data->SCALE;
+	data->player.y_pos = cub->player_pos_y * data->SCALE;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
-	data->player.walk_speed = 50;
-	data->player.turn_speed = 45 * (M_PI/180);
+	data->player.walk_speed = 5;
+	data->player.turn_speed = 10 * (M_PI/180);
 	data->player.walk_step = 0;
-	data->player.turn_step = 90 * (M_PI/180);
+	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'N')
+		data->player.turn_step =-( 90 * (M_PI/180));
+	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'S')
+		data->player.turn_step = 90 * (M_PI/180);
+	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'E')
+		data->player.turn_step = 0 * (M_PI/180);
+	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'W')
+		data->player.turn_step = 180 * (M_PI/180);
 }
