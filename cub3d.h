@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/09 18:29:47 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/12 01:21:17 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,20 @@ typedef struct s_player
 	float	walk_speed;
 	float	turn_speed;
 	float	walk_step;
-	float	turn_step;
+	float	angle;
+	float	view;
 }t_player;
+
+typedef struct s_ray
+{
+	float ray_angle;
+	float wall_x;
+	float wall_y;
+	float distance;
+	//is vertical or horizantal
+	//is up down left right
+	//int wall hit content 
+} t_ray;
 
 typedef struct s_infos
 {
@@ -72,7 +84,9 @@ typedef struct s_infos
 	int SCALE;
 	char **map;
 	t_player player;
+	t_ray *rays;
 }	t_infos;
+
 
 
 //get_next_line and some utils
@@ -117,4 +131,14 @@ void drawline(t_infos *wnd,float  x0, float y0, float x1, float y1);
 //player moves
 int	handle_keypress(int keysym, t_infos *data);
 int	handle_keyrelease(int keysym, t_infos *data);
+//wall collision
+int is_wall(t_infos *wnd,float x, float y);
+//rays
+void cast_all_rays(t_infos *data);
+void cast_each_ray(t_infos *data , float ray_angle, int ray_index);
+float check_angle(float ray_angle);
+void castRay(t_infos *data ,float rayAngle, int striM_PId);
+
+
+
 #endif

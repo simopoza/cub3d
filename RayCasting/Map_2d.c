@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/09 19:23:18 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/12 03:04:20 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ int	render(t_infos *wnd)
 	if(!wnd->img.ImgAddr )
 		print_error("ERROR: image info init failed\n");
 	render_map(wnd);
+	int i = 0;
+	while(i < wnd->WINDOW_WIDTH)
+	{
+		drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
+		i++;
+	}
+	
+
 	render_player(wnd);
 	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
 	mlx_destroy_image(wnd->mlx, wnd->img.MlxImg);
@@ -106,8 +114,9 @@ void print_error(char *msg)
 }
 void init_window(t_infos *data, t_cub *cub)
 {
+	//init window
 	data->map = cub->the_map;
-	data->SCALE = 60;
+	data->SCALE = 40;
 	data->WINDOW_WIDTH = map_columns(data->map) * data->SCALE;
 	data->WINDOW_HEIGHT = map_rows(data->map) *  data->SCALE;
 	data->mlx = mlx_init();
@@ -116,19 +125,26 @@ void init_window(t_infos *data, t_cub *cub)
 	data->mlx_win = mlx_new_window(data->mlx,  data->WINDOW_WIDTH,data->WINDOW_HEIGHT, "Cub3d");
 	if(!data->mlx_win)
 		print_error("ERROR: window init failed\n");
+	//init player
 	data->player.x_pos = cub->player_pos_x * data->SCALE;
 	data->player.y_pos = cub->player_pos_y * data->SCALE;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
 	data->player.walk_speed = 5;
-	data->player.turn_speed = 10 * (M_PI/180);
+	data->player.turn_speed = 5 * (M_PI/180);
 	data->player.walk_step = 0;
+	data->player.view = 60 * (M_PI / 180);
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'N')
-		data->player.turn_step =-( 90 * (M_PI/180));
+		data->player.angle =-( 90 * (M_PI/180));
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'S')
-		data->player.turn_step = 90 * (M_PI/180);
+		data->player.angle = 90 * (M_PI/180);
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'E')
-		data->player.turn_step = 0 * (M_PI/180);
+		data->player.angle = 0 * (M_PI/180);
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'W')
-		data->player.turn_step = 180 * (M_PI/180);
+		data->player.angle = 180 * (M_PI/180);
+	//init rays
+	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->WINDOW_WIDTH + 1);
+	if(!data->rays)
+		print_error("ERROR: dynamic allocation failure\n");
+	cast_all_rays(data);
 }

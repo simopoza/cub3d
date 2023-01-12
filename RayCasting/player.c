@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/09 19:24:18 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/12 02:03:09 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,17 @@ void drawline(t_infos *wnd, float x0, float y0, float x1, float y1)
 void render_player(t_infos *wnd)
 {
 	draw_img(&wnd->img, wnd->player.x_pos,  wnd->player.y_pos, 0xFF0000, 2);
-	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.turn_step) * 30 , wnd->player.y_pos  + sin(wnd->player.turn_step) * 30);
+	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
 }
 
 int is_wall(t_infos *wnd,float x, float y)
 {
 	if(x < 0 || x > wnd->WINDOW_WIDTH || y < 0 || y > wnd->WINDOW_HEIGHT)
+	{
+
 		return -1;
+	}
+		
 	if(wnd->map[(int)floor(y / wnd->SCALE)][(int)floor(x / wnd->SCALE)] == '1')
 		return -1;
 	return 1;
@@ -55,16 +59,16 @@ void move(t_infos *info, int flag)
 	float new_y;
 
 	info->player.walk_step = info->player.walk_direction * info->player.walk_speed;
-	info->player.turn_step += info->player.turn_direction * info->player.turn_speed ;
+	info->player.angle += info->player.turn_direction * info->player.turn_speed ;
 	if(flag == 1)
 	{
-		new_x = info->player.x_pos + cos(info->player.turn_step + M_PI/2) * info->player.walk_step;
-		new_y = info->player.y_pos + sin(info->player.turn_step + M_PI/2) * info->player.walk_step;
+		new_x = info->player.x_pos + cos(info->player.angle + M_PI/2) * info->player.walk_step;
+		new_y = info->player.y_pos + sin(info->player.angle + M_PI/2) * info->player.walk_step;
 
 	}else
 	{
-		new_x = info->player.x_pos + cos(info->player.turn_step) * info->player.walk_step;
-		new_y = info->player.y_pos + sin(info->player.turn_step) * info->player.walk_step;
+		new_x = info->player.x_pos + cos(info->player.angle) * info->player.walk_step;
+		new_y = info->player.y_pos + sin(info->player.angle) * info->player.walk_step;
 	}
 	if(is_wall(info, new_x, new_y) == 1)
 	{
@@ -99,7 +103,7 @@ int	handle_keypress(int keysym, t_infos *data)
 		flag = 1;
 	}
 	move(data,flag);
-
+	cast_all_rays(data);
 	return (0);
 }
 
