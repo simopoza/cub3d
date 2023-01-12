@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/12 01:21:17 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/12 17:04:53 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ int is_wall(t_infos *wnd,float x, float y);
 void cast_all_rays(t_infos *data);
 void cast_each_ray(t_infos *data , float ray_angle, int ray_index);
 float check_angle(float ray_angle);
-void castRay(t_infos *data ,float rayAngle, int striM_PId);
+void castRay(t_infos *data, float rayAngle, int stripId) ;
+float distance(float x1, float y1, float x2, float y2);
 
 
 
