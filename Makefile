@@ -6,7 +6,7 @@
 #    By: flouta <flouta@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/23 16:01:21 by mannahri          #+#    #+#              #
-#    Updated: 2023/01/12 17:04:21 by flouta           ###   ########.fr        #
+#    Updated: 2023/01/16 18:44:04 by flouta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ src = main.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c\
 ./RayCasting/test_rays.c
 cub3d = cub3d
 SANITIZE = -g -fsanitize=address
-FLAGS =   -lmlx -framework OpenGL -framework AppKit  -Wall -Wextra -Werror
+FLAGS =   -lmlx -framework OpenGL -framework AppKit  -Wall -Wextra -Werror #$(SANITIZE)
 CC = cc
 
 all : cub3d

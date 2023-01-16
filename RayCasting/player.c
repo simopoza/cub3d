@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/16 15:39:40 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:50:01 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void render_player(t_infos *wnd)
 {
 	
 	draw_img(&wnd->img, wnd->player.x_pos,  wnd->player.y_pos, 0xFF0000, 2);
-	//drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
+	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
 }
 
 int is_wall(t_infos *wnd,float x, float y)
@@ -48,8 +48,13 @@ int is_wall(t_infos *wnd,float x, float y)
 
 		return -1;
 	}
-		
-	if(wnd->map[(int)floor(y / wnd->SCALE)][(int)floor(x / wnd->SCALE)] == '1')
+	int x_check = floor(y / wnd->SCALE);
+	int y_check = floor(x / wnd->SCALE);
+
+	int clm = map_columns(wnd->map);
+	int rows = map_rows(wnd->map);
+
+	if( x_check < rows && y_check < clm &&  wnd->map[x_check][y_check] == '1')
 		return -1;
 	return 1;
 		
