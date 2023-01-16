@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:21:34 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/12 17:11:57 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:12:43 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void cast_all_rays(t_infos *data)
 	float ray_angle;
  	i = 0;
 	ray_angle = data->player.angle - ( data->player.view * 0.5);
-	while(i < data->WINDOW_WIDTH)
+	while(i <data->WINDOW_WIDTH)
 	{
 		cast_each_ray(data ,ray_angle, i) ;
 		ray_angle += data->player.view / data->WINDOW_WIDTH;
 		i++;
 	}
+	printf("-----------------------------\n");
 }
 
 float check_angle(float ray_angle)
@@ -126,8 +127,6 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index)
 		    
 		float h_distance = distance(data->player.x_pos, data->player.y_pos, h_next_x, h_next_y);
     	float v_distance = distance(data->player.x_pos, data->player.y_pos, v_next_x, v_next_y);
-		if(v_distance == h_distance)
-			printf("wa9ila\n");
 		if (v_distance < h_distance) {
 			// printf("horizental\n");
 			data->rays[ray_index].distance = v_distance;
@@ -140,6 +139,9 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index)
 			data->rays[ray_index].wall_y = h_next_y;
 		}
 		data->rays[ray_index].ray_angle = ray_angle;
+
+		printf("%d --> x = %f     y = %f\n",ray_index, data->rays[ray_index].wall_x  , data->rays[ray_index].wall_y);
+		
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/12 17:04:53 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:48:25 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,23 @@ typedef struct s_player
 {
 	float	x_pos;
 	float	y_pos;
-	int	turn_direction ;
-	int	walk_direction ;
+	int	turn_direction;
+	int	walk_direction;
 	float	walk_speed;
-	float	turn_speed;
-	float	walk_step;
-	float	angle;
-	float	view;
+	float	turn_speed; //bchehl kydor
+	float	walk_step;// bchehl kyzid
+	float	angle;//fin kychof 
+	float	view;//FOV 60
 }t_player;
+
+//corrDistance = distance * cos(ray_angle - angle);
 
 typedef struct s_ray
 {
-	float ray_angle;
+	float ray_angle;//ray angle ta3o
 	float wall_x;
 	float wall_y;
-	float distance;
+	float distance;//ray.distance
 	//is vertical or horizantal
 	//is up down left right
 	//int wall hit content 

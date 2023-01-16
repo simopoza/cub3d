@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/12 15:57:38 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:40:02 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,8 @@ int	render(t_infos *wnd)
 		drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
 		i++;
 	}
-	
-
 	render_player(wnd);
+	//render3dprojection();
 	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
 	mlx_destroy_image(wnd->mlx, wnd->img.MlxImg);
 	return (0);
@@ -126,8 +125,8 @@ void init_window(t_infos *data, t_cub *cub)
 	if(!data->mlx_win)
 		print_error("ERROR: window init failed\n");
 	//init player
-	data->player.x_pos = cub->player_pos_x * data->SCALE;
-	data->player.y_pos = cub->player_pos_y * data->SCALE;
+	data->player.x_pos = cub->player_pos_x * data->SCALE ;
+	data->player.y_pos = cub->player_pos_y * data->SCALE ;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
 	data->player.walk_speed = 5;
@@ -143,7 +142,7 @@ void init_window(t_infos *data, t_cub *cub)
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'W')
 		data->player.angle = 180 * (M_PI/180);
 	//init rays
-	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->WINDOW_WIDTH + 1);
+	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->WINDOW_WIDTH );
 	if(!data->rays)
 		print_error("ERROR: dynamic allocation failure\n");
 	cast_all_rays(data);

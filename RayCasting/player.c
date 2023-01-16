@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/12 16:36:32 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:39:40 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void drawline(t_infos *wnd, float x0, float y0, float x1, float y1)
 
 void render_player(t_infos *wnd)
 {
+	
 	draw_img(&wnd->img, wnd->player.x_pos,  wnd->player.y_pos, 0xFF0000, 2);
 	//drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
 }
@@ -104,6 +105,9 @@ int	handle_keypress(int keysym, t_infos *data)
 	}
 	move(data,flag);
 	cast_all_rays(data);
+
+	
+	
 	return (0);
 }
 
