@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:21:34 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/16 18:42:07 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:52:53 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void cast_all_rays(t_infos *data)
 		cast_each_ray(data ,ray_angle, i) ;
 		ray_angle += data->player.view / data->WINDOW_WIDTH;
 		i++;
-	}}
+	}
+	// printf("-----------------------------\n");
+}
 
 float check_angle(float ray_angle)
 {
@@ -65,12 +67,13 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index)
 		first_y = floor(data->player.y_pos / data->SCALE ) * data->SCALE;
 		if(down)
 			first_y += data->SCALE;
-		if(tan(ray_angle) != 0)
+		// tan_val =  floor(100000* tan(ray_angle))/100000;
+		// if(tan_val != 0)
 			first_x = data->player.x_pos + (first_y - data->player.y_pos) / tan (ray_angle);
 		y_step = data->SCALE;
 		if(up == 1)
 			y_step *= -1;
-		if(tan(ray_angle) != 0)
+		// if(tan_val != 0)
 			x_step = data->SCALE / tan(ray_angle); //check cases when tan can be a 0 or inf
 		 x_step *= (left && x_step > 0) ? -1 : 1;
     	x_step *= (right && x_step < 0) ? -1 : 1;
@@ -94,6 +97,7 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index)
 		first_x = floor(data->player.x_pos / data->SCALE ) * data->SCALE;
 		if(right)
 			first_x += data->SCALE;
+		// tan_val =  floor(100000* tan(ray_angle))/100000;
 	
 		first_y = data->player.y_pos + (first_x - data->player.x_pos) * tan (ray_angle);
 		x_step = data->SCALE;
@@ -124,15 +128,20 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index)
 		float h_distance = distance(data->player.x_pos, data->player.y_pos, h_next_x, h_next_y);
     	float v_distance = distance(data->player.x_pos, data->player.y_pos, v_next_x, v_next_y);
 		if (v_distance < h_distance) {
+			// printf("horizental\n");
 			data->rays[ray_index].distance = v_distance;
 			data->rays[ray_index].wall_x = v_next_x;
 			data->rays[ray_index].wall_y = v_next_y;
 		} else {
+			// printf("vertical\n");
 			data->rays[ray_index].distance = h_distance;
 			data->rays[ray_index].wall_x =h_next_x;
 			data->rays[ray_index].wall_y = h_next_y;
 		}
-		data->rays[ray_index].ray_angle = ray_angle;		
+		data->rays[ray_index].ray_angle = ray_angle;
+
+		// printf("%d --> x = %f     y = %f\n",ray_index, data->rays[ray_index].wall_x  , data->rays[ray_index].wall_y);
+		
 
 }
 

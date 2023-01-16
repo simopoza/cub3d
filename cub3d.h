@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/16 15:48:25 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:49:23 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ typedef struct s_player
 
 //corrDistance = distance * cos(ray_angle - angle);
 
+typedef struct s_3dproj
+{
+	int wall_height;
+    float distance_proj_plane;
+    float proj_wall_height;
+    float corr_distance;
+    int topPixel;
+    int bottomPixel;
+}	t_3dproj;
+
 typedef struct s_ray
 {
 	float ray_angle;//ray angle ta3o
@@ -81,12 +91,14 @@ typedef struct s_infos
 	void *mlx;
 	void *mlx_win;
 	t_img img;
-	int WINDOW_WIDTH ;
+	int WINDOW_WIDTH;
 	int WINDOW_HEIGHT;
 	int SCALE;
 	char **map;
 	t_player player;
 	t_ray *rays;
+	int		floor;
+	int		ciel;
 }	t_infos;
 
 
@@ -141,7 +153,8 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index);
 float check_angle(float ray_angle);
 void castRay(t_infos *data, float rayAngle, int stripId) ;
 float distance(float x1, float y1, float x2, float y2);
-
+//3D projection
+void    render3Dprojection(t_infos *info);
 
 
 #endif

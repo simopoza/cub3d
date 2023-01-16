@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Map_2d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/16 16:08:00 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:10:06 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_img(t_img *img, int x, int y, int color , int size)
 				if(size == 0 || (i != 0 && j != 0 && i != x + size - 1 && j != y + size - 1))
 					*(int *)draw = color;
 				else
-					*(int *)draw = 0x00FF00;
+					*(int *)draw = 489798;
 			}else
 				*(int *)draw = color;
 		}
@@ -92,15 +92,15 @@ int	render(t_infos *wnd)
 	wnd->img.ImgAddr = mlx_get_data_addr(wnd->img.MlxImg, &wnd->img.BytesInPx, &wnd->img.BytesInRow, &wnd->img.endian);
 	if(!wnd->img.ImgAddr )
 		print_error("ERROR: image info init failed\n");
-	render_map(wnd);
-	int i = 0;
-	while(i < wnd->WINDOW_WIDTH)
-	{
-		drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
-		i++;
-	}
-	render_player(wnd);
-	//render3dprojection();
+	// render_map(wnd);
+	render3Dprojection(wnd);
+	// render_player(wnd);
+	// int i = 0;
+	// while(i < wnd->WINDOW_WIDTH)
+	// {
+	// 	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
+	// 	i++;
+	// }
 	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
 	mlx_destroy_image(wnd->mlx, wnd->img.MlxImg);
 	return (0);
@@ -115,7 +115,7 @@ void init_window(t_infos *data, t_cub *cub)
 {
 	//init window
 	data->map = cub->the_map;
-	data->SCALE = 40;
+	data->SCALE = 60;
 	data->WINDOW_WIDTH = map_columns(data->map) * data->SCALE;
 	data->WINDOW_HEIGHT = map_rows(data->map) *  data->SCALE;
 	data->mlx = mlx_init();

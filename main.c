@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 3022/12/23 16:01:48 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/09 18:29:13 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:02:38 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	main(int ac, char *av[])
 
 	
 	init_window(&data,cub);
+	if (!cub->rgb_f)
+		data.floor = (cub->rgb_f[0] << 16 | cub->rgb_f[1] << 8 | cub->rgb_f[2]);
+	if (!cub->rgb_c)
+		data.ciel = (cub->rgb_c[0] << 16 | cub->rgb_c[1] << 8 | cub->rgb_c[2]);
 	mlx_hook(data.mlx_win, 2, 0, &handle_keypress, &data);
 	//calls the user_defined functs when an events occurs
 	mlx_loop_hook(data.mlx, &render, &data);

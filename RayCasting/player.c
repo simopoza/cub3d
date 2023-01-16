@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/16 18:50:01 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:14:23 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void render_player(t_infos *wnd)
 {
 	
 	draw_img(&wnd->img, wnd->player.x_pos,  wnd->player.y_pos, 0xFF0000, 2);
-	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
+	//drawline(wnd, wnd->player.x_pos , wnd->player.y_pos ,wnd->player.x_pos + cos(wnd->player.angle) * 30 , wnd->player.y_pos  + sin(wnd->player.angle) * 30);
 }
 
 int is_wall(t_infos *wnd,float x, float y)
@@ -59,6 +59,7 @@ int is_wall(t_infos *wnd,float x, float y)
 	return 1;
 		
 }
+
 void move(t_infos *info, int flag)
 {
 	float new_x;
@@ -110,9 +111,6 @@ int	handle_keypress(int keysym, t_infos *data)
 	}
 	move(data,flag);
 	cast_all_rays(data);
-
-	
-	
 	return (0);
 }
 
