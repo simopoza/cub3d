@@ -6,11 +6,19 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:25:25 by mannahri          #+#    #+#             */
-/*   Updated: 2022/12/30 22:46:25 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/18 04:24:32 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	initial_in_map(t_cub *cub, int len)
+{
+	cub->len_lines = malloc(sizeof(int) * len);
+	if (ft_check_last_line(cub->the_map[len - 1]))
+		ft_exit();
+	cub->len_lines[0] = ft_strlen(cub->the_map[0]);
+}
 
 void	ft_exit(void)
 {
@@ -18,11 +26,8 @@ void	ft_exit(void)
 	exit (1);
 }
 
-void	check_duplicated(t_cub *cub, char *identifier, char *file)
+int	check_duplicated_norm(t_cub *cub, char *identifier, char *file, int flag)
 {
-	int	flag;
-
-	flag = 0;
 	if (!ft_strncmp(identifier, "NO", 2))
 	{
 		if (cub->no_file != NULL)
@@ -47,6 +52,15 @@ void	check_duplicated(t_cub *cub, char *identifier, char *file)
 			flag = 1;
 		cub->ea_file = file;
 	}
+	return (flag);
+}
+
+void	check_duplicated(t_cub *cub, char *identifier, char *file)
+{
+	int	flag;
+
+	flag = 0;
+	flag = check_duplicated_norm(cub, identifier, file, flag);
 	if (flag == 1)
 	{
 		printf ("Error in the map Duplication\n");

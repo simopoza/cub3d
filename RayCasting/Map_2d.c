@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/16 19:10:06 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:18:13 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,26 @@ int map_rows(char **map)
 	return i;
 }
 
-void	draw_img(t_img *img, int x, int y, int color , int size)
+void	draw_img(t_img *img, int x, int y, int color , int size, t_infos *wnd)
 {
 	char    *draw;
-
-	for(int i = x; i < x  + size ;i++)
+	if(y < wnd->window_height  &&  x < wnd->window_width)
 	{
-		for(int j = y; j <y + size ;j++)
+		for(int i = x; i < x  + size ;i++)
 		{
-			draw = img->ImgAddr + (j * img->BytesInRow + i * (img->BytesInPx / 8));
-			if(size > 1)
+			for(int j = y; j <y + size ;j++)
 			{
-				if(size == 0 || (i != 0 && j != 0 && i != x + size - 1 && j != y + size - 1))
-					*(int *)draw = color;
+				draw = img->img_addr + (j * img->bytes_in_row + i * (img->bytes_in_px / 8));
+				if(size > 1)
+				{
+					if(size == 0 || (i != 0 && j != 0 && i != x + size - 1 && j != y + size - 1))
+						*(int *)draw = color;
+					else
+						*(int *)draw = 489798;
+				}
 				else
-					*(int *)draw = 489798;
-			}else
-				*(int *)draw = color;
+					*(int *)draw = color;
+			}
 		}
 	}
 }
@@ -75,9 +78,9 @@ void render_map(t_infos *data)
 		while (data->map[i][j])
 		{
 			if(data->map[i][j] == '1')
-				draw_img(&data->img, j * data->SCALE, i * data->SCALE, 0xEEE6E4, data->SCALE);
+				draw_img(&data->img, j * data->scale, i * data->scale, 0xEEE6E4, data->scale, data);
 			if(data->map[i][j] == '0' || data->map[i][j] == 'N' ||  data->map[i][j] == 'S' ||  data->map[i][j] == 'E' ||  data->map[i][j] == 'W')//mod
-				draw_img(&data->img, j * data->SCALE, i * data->SCALE, 0x000000, data->SCALE);
+				draw_img(&data->img, j * data->scale, i * data->scale, 0x000000, data->scale, data);
 			j++;
 		}
 		i++;
@@ -86,23 +89,24 @@ void render_map(t_infos *data)
 
 int	render(t_infos *wnd)
 {
-	wnd->img.MlxImg = mlx_new_image(wnd->mlx, wnd->WINDOW_WIDTH, wnd->WINDOW_HEIGHT);
-	if(!wnd->img.MlxImg )
+	wnd->img.mlx_img = mlx_new_image(wnd->mlx, wnd->window_width, wnd->window_height);
+	if(!wnd->img.mlx_img)
 		print_error("ERROR: image init failed\n");
-	wnd->img.ImgAddr = mlx_get_data_addr(wnd->img.MlxImg, &wnd->img.BytesInPx, &wnd->img.BytesInRow, &wnd->img.endian);
-	if(!wnd->img.ImgAddr )
+	wnd->img.img_addr = mlx_get_data_addr(wnd->img.mlx_img, &wnd->img.bytes_in_px, &wnd->img.bytes_in_row, &wnd->img.endian);
+	if(!wnd->img.img_addr )
 		print_error("ERROR: image info init failed\n");
 	// render_map(wnd);
-	render3Dprojection(wnd);
-	// render_player(wnd);
+	render3dprojection(wnd);
+	
 	// int i = 0;
-	// while(i < wnd->WINDOW_WIDTH)
+	// while(i < wnd->window_width)
 	// {
 	// 	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
 	// 	i++;
 	// }
-	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.MlxImg, 0, 0);
-	mlx_destroy_image(wnd->mlx, wnd->img.MlxImg);
+	// render_player(wnd);
+	mlx_put_image_to_window(wnd->mlx, wnd->mlx_win, wnd->img.mlx_img, 0, 0);
+	mlx_destroy_image(wnd->mlx, wnd->img.mlx_img);
 	return (0);
 }
 
@@ -115,18 +119,20 @@ void init_window(t_infos *data, t_cub *cub)
 {
 	//init window
 	data->map = cub->the_map;
-	data->SCALE = 60;
-	data->WINDOW_WIDTH = map_columns(data->map) * data->SCALE;
-	data->WINDOW_HEIGHT = map_rows(data->map) *  data->SCALE;
+	data->scale = 80;
+	// data->window_width = map_columns(data->map) * data->scale;
+	data->window_height = 1700;
+	data->window_width = 1400;
+	// data->window_height = map_rows(data->map) *  data->scale;
 	data->mlx = mlx_init();
 	if(!data->mlx)
 		print_error("ERROR: mlx init failed\n");
-	data->mlx_win = mlx_new_window(data->mlx,  data->WINDOW_WIDTH,data->WINDOW_HEIGHT, "Cub3d");
+	data->mlx_win = mlx_new_window(data->mlx,  data->window_width,data->window_height, "Cub3d");
 	if(!data->mlx_win)
 		print_error("ERROR: window init failed\n");
 	//init player
-	data->player.x_pos = cub->player_pos_x * data->SCALE ;
-	data->player.y_pos = cub->player_pos_y * data->SCALE ;
+	data->player.x_pos = cub->player_pos_x * data->scale ;
+	data->player.y_pos = cub->player_pos_y * data->scale ;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
 	data->player.walk_speed = 5;
@@ -142,7 +148,7 @@ void init_window(t_infos *data, t_cub *cub)
 	if(data->map[cub->player_pos_y][cub->player_pos_x] == 'W')
 		data->player.angle = 180 * (M_PI/180);
 	//init rays
-	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->WINDOW_WIDTH );
+	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->window_width );
 	if(!data->rays)
 		print_error("ERROR: dynamic allocation failure\n");
 	cast_all_rays(data);

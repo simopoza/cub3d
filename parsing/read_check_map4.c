@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:52:28 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/08 17:04:32 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:20:25 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,11 @@ void	check_the_map(t_cub *cub)
 
 	player = 0;
 	len = ft_strlen_double(cub->the_map);
-	if (ft_check_last_line(cub->the_map[len - 1]))
-		ft_exit();
+	initial_in_map(cub, len);
 	i = 1;
-	while (cub->the_map[i])
+	while (cub->the_map[i] && i != len - 1)
 	{
-		if (i == len - 1)
-			break ;
+		cub->len_lines[i] = ft_strlen(cub->the_map[i]);
 		j = 0;
 		while (cub->the_map[i][j])
 		{
@@ -103,6 +101,7 @@ void	check_the_map(t_cub *cub)
 		}
 		i++;
 	}
+	cub->rows = i + 1;
 	if (player != 1)
 		ft_exit();
 }
