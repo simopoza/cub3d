@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/18 23:33:11 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 00:49:55 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ int	render(t_infos *wnd)
 	i = 0;
 
 	create_img(wnd);
-	render_map(wnd);
-	//  render3Dprojection(wnd);
-	while(i < wnd->WINDOW_WIDTH)
-	{
-		drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
-		i++;
-	}
+	// render_map(wnd);
+	 render3Dprojection(wnd);
+	// while(i < wnd->WINDOW_WIDTH)
+	// {
+	// 	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
+	// 	i++;
+	// }
 	destroy_img(wnd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/18 21:37:51 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 00:44:37 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ typedef struct s_3dproj
     int bottomPixel;
 }	t_3dproj;
 
+
 enum v_h
 {
 	vertical,
 	horizontal,
 } ;
-
 typedef struct s_ray//add ray direction (enum)
 {
 	float ray_angle;//ray angle ta3o
@@ -88,6 +88,10 @@ typedef struct s_ray//add ray direction (enum)
 	float wall_y;
 	float distance;
 	enum v_h	direction;
+	int up;
+	int down;
+	int right;
+	int left;
 } t_ray;
 
 typedef struct s_cord

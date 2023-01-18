@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 00:18:24 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 00:42:40 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int is_wall(t_infos *wnd,float x, float y) // fix is wall
 		while(wnd->map[x_check][i])
 			i++;
 	}
-	if(x_check < wnd->rows && y_check < wnd->row_len[x_check] &&  wnd->map[x_check][y_check] == '1')
+	if(x_check < wnd->rows && y_check < i &&  wnd->map[x_check][y_check] == '1')
 		return -1;
 	return 1;
 		

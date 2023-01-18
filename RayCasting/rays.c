@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:21:34 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/18 21:39:52 by flouta           ###   ########.fr       */
+/*   data->rays[ray_index].updated: 2023/01/18 21:39:52 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ float distance(float x1, float y1, float x2, float y2) {
 
 void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 {
-	int up = 0;
-	int down = 0;
-	int right = 0;
-	int left = 0;
+	data->rays[ray_index].up = 0;
+	data->rays[ray_index].down = 0;
+	data->rays[ray_index].right = 0;
+	data->rays[ray_index].left = 0;
 
 	ray_angle = check_angle(ray_angle);
 	if(ray_angle > 0 && ray_angle < M_PI)
-		down = 1;
-	up = !down;
+		data->rays[ray_index].down = 1;
+	data->rays[ray_index].up = !data->rays[ray_index].down;
 	if(ray_angle > M_PI/ 2 && ray_angle <  M_PI * 3/2)
-		left = 1;
-	right = !left;
+		data->rays[ray_index].left = 1;
+	data->rays[ray_index].right = !data->rays[ray_index].left;
 	float first_x = 0;
 	float first_y = 0;
 	float x_step = 0;
@@ -67,24 +67,24 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 
 		
 		first_y = floor(data->player.y_pos / data->SCALE ) * data->SCALE;
-		if(down)
+		if(data->rays[ray_index].down)
 			first_y += data->SCALE;
 		if(tan_val != 0)
 			first_x = data->player.x_pos + (first_y - data->player.y_pos) / tan_val;
 		y_step = data->SCALE;
-		if(up == 1)
+		if(data->rays[ray_index].up == 1)
 			y_step *= -1;
 		if(tan_val != 0)
 			x_step = data->SCALE / tan_val;
-		 x_step *= (left && x_step > 0) ? -1 : 1;
-    	x_step *= (right && x_step < 0) ? -1 : 1;
+		 x_step *= (data->rays[ray_index].left && x_step > 0) ? -1 : 1;
+    	x_step *= (data->rays[ray_index].right && x_step < 0) ? -1 : 1;
 	
 		float h_next_x = first_x;
 		float h_next_y = first_y;
 		float y_check = first_y;
 		while(h_next_x >= 0 && h_next_x <= data->WINDOW_WIDTH&& h_next_y >= 0 && h_next_y <= data->WINDOW_HEIGHT )
 		{
-			if(up == 1)	
+			if(data->rays[ray_index].up == 1)	
 				y_check = h_next_y - 1;
 			else
 				y_check = h_next_y;
@@ -95,16 +95,16 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 		}
 
 		first_x = floor(data->player.x_pos / data->SCALE ) * data->SCALE;
-		if(right)
+		if(data->rays[ray_index].right)
 			first_x += data->SCALE;	
 		first_y = data->player.y_pos + (first_x - data->player.x_pos) * tan (ray_angle);
 		x_step = data->SCALE;
-		if(left == 1)
+		if(data->rays[ray_index].left == 1)
 			x_step *= -1;
 
 		y_step = data->SCALE * tan(ray_angle);
-		y_step *= (up && y_step > 0) ? -1 : 1;
-    	y_step *= (down&& y_step < 0) ? -1 : 1;
+		y_step *= (data->rays[ray_index].up && y_step > 0) ? -1 : 1;
+    	y_step *= (data->rays[ray_index].down && y_step < 0) ? -1 : 1;
 	
 		float v_next_x = first_x;
 		float v_next_y = first_y;
@@ -112,7 +112,7 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 
 		while(v_next_x >= 0 && v_next_x <= data->WINDOW_WIDTH&& v_next_y >= 0 && v_next_y <= data->WINDOW_HEIGHT )
 		{
-			if(left == 1)	
+			if(data->rays[ray_index].left == 1)	
 				x_check = v_next_x - 1;
 			else
 				x_check = v_next_x;
