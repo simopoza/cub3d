@@ -1,16 +1,16 @@
 
 
-F        25,10,13
+F        11,12,000
 
-C  240,156,90
+C  255,1,12
 
-NO ./wall1.xpm
+NO ./NO_texture.XPM
 
-SO ./wall2.xpm
+SO ./SO_texture.XPM
 
-WE    ./wall3.xpm
+WE    ./WE_texture.XPM
 
-EA      ./wall4.xpm
+EA      ./EA_texture.XPM
 
 
         1111111111111111111111111
