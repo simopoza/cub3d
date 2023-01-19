@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/19 00:44:37 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 01:01:13 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,20 @@ enum v_h
 {
 	vertical,
 	horizontal,
-} ;
+};
+
+enum u_d
+{
+	up,
+	down,
+};
+
+enum r_l
+{
+	right,
+	left,
+};
+
 typedef struct s_ray//add ray direction (enum)
 {
 	float ray_angle;//ray angle ta3o
@@ -88,10 +101,12 @@ typedef struct s_ray//add ray direction (enum)
 	float wall_y;
 	float distance;
 	enum v_h	direction;
-	int up;
-	int down;
-	int right;
-	int left;
+	enum u_d up_down;
+	enum r_l right_left;
+	// int up;
+	// int down;
+	// int right;
+	// int left;
 } t_ray;
 
 typedef struct s_cord
