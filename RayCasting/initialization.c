@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:30:53 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 01:27:55 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 02:06:01 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_player(t_infos *data, t_cub *cub)
 	data->player.y_pos = cub->player_pos_y * data->scale ;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
-	data->player.walk_speed = 5;
+	data->player.walk_speed = 10;
 	data->player.turn_speed = 5 * (M_PI / 180);
 	data->player.walk_step = 0;
 	data->player.view = 60 * (M_PI / 180);
@@ -62,4 +62,21 @@ void	init_start(t_infos *data, t_cub *cub)
 	init_window(data);
 	init_player(data, cub);
 	init_rays(data);
+}
+
+void clean_up(t_infos *data)
+{
+	int i ;
+
+	i = 0;
+	while(data->map[i])
+	{
+		free(data->map[i]);
+		i++;
+	}
+	free(data->map);
+	free(data->rays);
+	free(data->row_len);
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	free(data->mlx);
 }

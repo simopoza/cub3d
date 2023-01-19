@@ -31,6 +31,12 @@ int	handle_keypress(int keysym, t_infos *data)
 	flag = 0;
 	data->player.walk_direction = 0;
 	data->player.turn_direction = 0;
+	if(keysym == 53)
+	{
+		clean_up(data);
+		exit(2);
+	}
+	
 	if(keysym == 13)
 		data->player.walk_direction = 1;
 	if(keysym == 1)
@@ -52,4 +58,10 @@ int	handle_keypress(int keysym, t_infos *data)
 	move(data,flag);
 	cast_all_rays(data);
 	return (0);
+}
+
+int fgclose(t_infos *data)
+{
+	clean_up(data);
+	exit(3);
 }

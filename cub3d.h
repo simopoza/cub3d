@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/19 01:27:55 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 01:55:24 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void init_window(t_infos *data);
 void init_rays(t_infos *data);
 void init_player(t_infos *data, t_cub *cub);
 void	initial_in_map(t_cub *cub, int len);
+void clean_up(t_infos *data);
 // 2D map
 void	draw_img(t_infos *data, t_cord *cord , int color);
 void render_map(t_infos *data);
@@ -176,6 +177,7 @@ void drawline(t_infos *wnd,float  x0, float y0, float x1, float y1);
 //player moves
 int	handle_keypress(int keysym, t_infos *data);
 int	handle_keyrelease(int keysym, t_infos *data);
+int fgclose(t_infos *data);
 //wall collision
 int is_wall(t_infos *wnd,float x, float y);
 //rays

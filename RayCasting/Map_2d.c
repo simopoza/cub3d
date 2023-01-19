@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 01:28:20 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 02:03:21 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void render_map(t_infos *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			cord.x = j * data->scale;
-			cord.y = i * data->scale;
-			cord.size = data->scale;
+			cord.x = j * 10;
+			cord.y = i * 10;
+			cord.size = 10;
 			if(data->map[i][j] == '1')
 				draw_img(data, &cord , 0xEEE6E4);
 			if(data->map[i][j] == '0' || data->map[i][j] == 'N' ||  data->map[i][j] == 'S' ||  data->map[i][j] == 'E' ||  data->map[i][j] == 'W')//mod
@@ -82,13 +82,13 @@ int	render(t_infos *wnd)
 	i = 0;
 
 	create_img(wnd);
-	// render_map(wnd);
 	 render3Dprojection(wnd);
-	// while(i < wnd->window_width)
-	// {
-	// 	drawline(wnd, wnd->player.x_pos , wnd->player.y_pos  ,wnd->rays[i].wall_x , wnd->rays[i].wall_y);
-	// 	i++;
-	// }
+	render_map(wnd);
+	while(i < wnd->window_width)
+	{
+		drawline(wnd, (wnd->player.x_pos/ wnd->scale ) * 10, (wnd->player.y_pos/ wnd->scale ) * 10  ,( wnd->rays[i].wall_x / wnd->scale) * 10 , ( wnd->rays[i].wall_y / wnd->scale) * 10);
+		i++;
+	}
 	destroy_img(wnd);
 	return (0);
 }
