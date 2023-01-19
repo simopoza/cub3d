@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:30:53 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 02:06:01 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 20:43:20 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	init_player(t_infos *data, t_cub *cub)
 {
+	printf ("x : %d\n", cub->player_pos_x);
+	printf ("y : %d\n", cub->player_pos_y);
 	data->player.x_pos = cub->player_pos_x * data->scale ;
 	data->player.y_pos = cub->player_pos_y * data->scale ;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
-	data->player.walk_speed = 10;
+	data->player.walk_speed = 5;
 	data->player.turn_speed = 5 * (M_PI / 180);
 	data->player.walk_step = 0;
 	data->player.view = 60 * (M_PI / 180);
@@ -40,14 +42,15 @@ void	init_rays(t_infos *data)
 	cast_all_rays(data);
 }
 
-void	init_window(t_infos *data)
+void	init_window(t_infos *data, t_cub *cub)
 {
-	data->scale = 32;
-	data->window_width = 1200;
-	data->window_heigth = 1200;
+	data->scale = 64;
+	data->window_width = 1500;
+	data->window_heigth = 1500;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		print_error("ERROR: mlx init failed\n");
+	get_textures_buffer(cub, data->mlx);
 	data->mlx_win = mlx_new_window(data->mlx, data->window_width, \
 		data->window_heigth, "Cub3d");
 	if (!data->mlx_win)
@@ -59,7 +62,7 @@ void	init_start(t_infos *data, t_cub *cub)
 	data->map = cub->the_map;
 	data->rows = cub->rows;
 	data->row_len = cub->len_lines;
-	init_window(data);
+	init_window(data, cub);
 	init_player(data, cub);
 	init_rays(data);
 }

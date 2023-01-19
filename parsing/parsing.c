@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 07:57:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/01 07:59:03 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/19 03:09:10 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ t_cub	*parsing(int ac, char *av[])
 	}
 	initial_cub(cub);
 	cub = handling_map(av, cub);
-	printf ("im here u know\nmap is open \n");	
 	return (cub);
 }

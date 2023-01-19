@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Map_2d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:05 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 02:03:21 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 20:46:00 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int	render(t_infos *wnd)
 	i = 0;
 
 	create_img(wnd);
-	 render3Dprojection(wnd);
+	// render3Dprojection(wnd);
 	render_map(wnd);
 	while(i < wnd->window_width)
 	{
-		drawline(wnd, (wnd->player.x_pos/ wnd->scale ) * 10, (wnd->player.y_pos/ wnd->scale ) * 10  ,( wnd->rays[i].wall_x / wnd->scale) * 10 , ( wnd->rays[i].wall_y / wnd->scale) * 10);
+		drawline(wnd, (wnd->player.x_pos / wnd->scale ) * 10, (wnd->player.y_pos/ wnd->scale ) * 10  ,( wnd->rays[i].wall_x / wnd->scale) * 10 , ( wnd->rays[i].wall_y / wnd->scale) * 10);
 		i++;
 	}
 	destroy_img(wnd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 21:15:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/05 18:29:27 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 03:10:18 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	first_line(char *line)
 	{
 		if (line[i] != '1')
 		{
-			printf ("Error\n");
+			printf ("Errosdfr\n");
 			exit (1);
 		}
 		i++;
@@ -78,6 +78,9 @@ void	read_map(t_cub *cub, int fd)
 	while (cub->str != NULL)
 	{
 		if (count <= 6)
+			if (end_read(cub->str))
+				count++;
+		if (count <= 6)
 		{
 			cub->line = ft_strjoin_line(cub->line, cub->str);
 			free (cub->str);
@@ -87,9 +90,6 @@ void	read_map(t_cub *cub, int fd)
 			read_second_map(cub, fd);
 		if (!cub->str)
 			break ;
-		if (count <= 6)
-			if (end_read(cub->str))
-				count++;
 	}
 }
 

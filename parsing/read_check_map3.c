@@ -6,7 +6,7 @@
 /*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:51:28 by mannahri          #+#    #+#             */
-/*   Updated: 2022/12/29 15:27:36 by mannahri         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:56:49 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	check_first_map(t_cub *cub)
 	{
 		if (!is_it_valid1(cub->first_map[i], cub))
 		{
-			printf ("this is the line : %s\n", cub->first_map[i]);
 			printf ("Error in the map\n");
 			exit (1);
 		}

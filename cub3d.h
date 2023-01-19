@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/19 01:55:24 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 03:25:21 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include "./libft/libft.h"
 #include "mlx.h"
 #include "math.h"
+
+typedef	struct texture
+{
+	char	*add_img;
+	int		bits_per_pixel;
+	int		bytes_in_row;
+	int		endian;
+	int		width;
+	int		height;
+}	t_texture;
 
 typedef struct cub
 {
@@ -39,6 +49,7 @@ typedef struct cub
 	char	char_player;
 	int		*len_lines;
 	int		rows;
+	t_texture	textures[4];
 }	t_cub;
 
 typedef struct s_img
@@ -71,8 +82,8 @@ typedef struct s_3dproj
     float distance_proj_plane;
     float proj_wall_height;
     float corr_distance;
-    int topPixel;
-    int bottomPixel;
+    int top_pixel;
+    int bottom_pixel;
 }	t_3dproj;
 
 
@@ -124,13 +135,23 @@ typedef struct s_infos
 	char **map;
 	t_player player;
 	t_ray *rays;
+	t_cub	*cub;
 	int		rows;
 	int		*row_len;
 	int		floor;
 	int		ciel;
 }	t_infos;
 
-
+typedef struct s_rend
+{
+	t_3dproj	proj;
+	t_player	player;
+	t_ray		*ray;
+	t_img		img;
+	int			i;
+	int			j;
+	char		*draw;
+}	t_rend;
 
 //get_next_line and some utils
 int		ft_strlen_line(char *str);
@@ -160,7 +181,7 @@ int		mine_strncmp(const char *s1, const char *s2, size_t n, size_t i);
 void	check_rgb(char *line, int i, t_cub *cub, char color);
 //initializion
 void init_start(t_infos *data, t_cub *cub);
-void init_window(t_infos *data);
+void init_window(t_infos *data, t_cub *cub);
 void init_rays(t_infos *data);
 void init_player(t_infos *data, t_cub *cub);
 void	initial_in_map(t_cub *cub, int len);
@@ -188,6 +209,6 @@ void castRay(t_infos *data, float rayAngle, int stripId) ;
 float distance(float x1, float y1, float x2, float y2);
 //3D projection
 void    render3Dprojection(t_infos *info);
-
+void	get_textures_buffer(t_cub *cub, void *mlx);
 
 #endif

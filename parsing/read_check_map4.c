@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_map4.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mannahri <mannahri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:52:28 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/18 18:26:39 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 20:18:57 by mannahri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	check_the_map(t_cub *cub)
 		}
 		i++;
 	}
+	cub->len_lines[i] = ft_strlen(cub->the_map[i]);
 	cub->rows = i + 1;
 	if (player != 1)
 		ft_exit();
