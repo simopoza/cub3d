@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:51:07 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/19 00:42:40 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 01:27:55 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void drawline(t_infos *wnd, float x0, float y0, float x1, float y1)//change it
 
 int is_wall(t_infos *wnd,float x, float y) // fix is wall
 {
-	if(x < 0 || x > wnd->WINDOW_WIDTH || y < 0 || y > wnd->WINDOW_HEIGHT)
+	if(x < 0 || x > wnd->window_width || y < 0 || y > wnd->window_heigth)
 	{
 
 		return -1;
 	}
-	int x_check = floor(y / wnd->SCALE);
-	int y_check = floor(x / wnd->SCALE);
+	int x_check = floor(y / wnd->scale);
+	int y_check = floor(x / wnd->scale);
 	int i = 0;
 	if(x_check < wnd->rows)
 	{

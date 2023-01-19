@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:03:01 by mannahri          #+#    #+#             */
-/*   Updated: 2023/01/19 01:01:13 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 01:27:55 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct cub
 
 typedef struct s_img
 {
-	void	*MlxImg;
-	char	*ImgAddr;
-	int		BytesInPx; //number of bits needed to represent a pixel color (also called the depth of the image).
-	int		BytesInRow;//is the number of bytes used to store one line of the image in memory.
+	void	*mlx_img;
+	char	*img_addr;
+	int		bytes_in_px; //number of bits needed to represent a pixel color (also called the depth of the image).
+	int		bytes_in_row;//is the number of bytes used to store one line of the image in memory.
 	int		endian; //tells you wether the pixel color in the image needs to be stored in :little (endian == 0), or big (endian == 1).
 }	t_img;
 
@@ -100,13 +100,9 @@ typedef struct s_ray//add ray direction (enum)
 	float wall_x;
 	float wall_y;
 	float distance;
-	enum v_h	direction;
+	enum v_h direction;
 	enum u_d up_down;
 	enum r_l right_left;
-	// int up;
-	// int down;
-	// int right;
-	// int left;
 } t_ray;
 
 typedef struct s_cord
@@ -122,9 +118,9 @@ typedef struct s_infos
 	void *mlx;
 	void *mlx_win;
 	t_img img;
-	int WINDOW_WIDTH;
-	int WINDOW_HEIGHT;//fix a fixed width and height so we can replace it with number of rows
-	int SCALE;
+	int window_width;
+	int window_heigth;//fix a fixed width and height so we can replace it with number of rows
+	int scale;
 	char **map;
 	t_player player;
 	t_ray *rays;

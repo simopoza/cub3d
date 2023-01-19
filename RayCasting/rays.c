@@ -20,10 +20,10 @@ void cast_all_rays(t_infos *data)
 
  	i = 0;
 	ray_angle = data->player.angle - ( data->player.view * 0.5);
-	while(i <data->WINDOW_WIDTH)
+	while(i <data->window_width)
 	{
 		cast_each_ray(data ,ray_angle, i) ;
-		ray_angle += data->player.view / data->WINDOW_WIDTH;
+		ray_angle += data->player.view / data->window_width;
 		i++;
 	}
 }
@@ -49,7 +49,45 @@ void ray_direction(t_infos *data , float ray_angle, int ray_index)
 		data->rays[ray_index].up_down = down;
 	if(ray_angle > M_PI/ 2 && ray_angle <  M_PI * 3/2)
 		data->rays[ray_index].right_left = left;
+	data->rays[ray_index].ray_angle = ray_angle;
 }
+
+// void cast_horizontal_rays(t_infos *data , float ray_angle, int ray_index)
+// {
+// 	float first_x = 0;
+// 	float first_y = 0;
+// 	float x_step = 0;
+// 	float y_step = 0;
+// 	float tan_val;
+
+// 		first_y = floor(data->player.y_pos / data->scale ) * data->scale;
+// 		if(data->rays[ray_index].up_down == down)
+// 			first_y += data->scale;
+// 		if(tan_val != 0)
+// 			first_x = data->player.x_pos + (first_y - data->player.y_pos) / tan_val;
+// 		y_step = data->scale;
+// 		if(data->rays[ray_index].up_down == up)
+// 			y_step *= -1;
+// 		if(tan_val != 0)
+// 			x_step = data->scale / tan_val;
+// 		 x_step *= (data->rays[ray_index].right_left == left && x_step > 0) ? -1 : 1;
+//     	x_step *= (data->rays[ray_index].right_left == right && x_step < 0) ? -1 : 1;
+	
+// 		float h_next_x = first_x;
+// 		float h_next_y = first_y;
+// 		float y_check = first_y;
+// 		while(h_next_x >= 0 && h_next_x <= data->window_width&& h_next_y >= 0 && h_next_y <= data->window_heigth )
+// 		{
+// 			if(data->rays[ray_index].up_down == up)	
+// 				y_check = h_next_y - 1;
+// 			else
+// 				y_check = h_next_y;
+// 			if(is_wall(data, h_next_x, y_check) == -1)
+// 				break;	
+// 			h_next_x += x_step;
+// 			h_next_y += y_step;
+// 		}
+// }
 
 void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 {
@@ -64,24 +102,24 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 	ray_direction(data, ray_angle, ray_index);
 	tan_val = tan(ray_angle);
 
-		
-		first_y = floor(data->player.y_pos / data->SCALE ) * data->SCALE;
+	// cast_horizontal_rays();
+		first_y = floor(data->player.y_pos / data->scale ) * data->scale;
 		if(data->rays[ray_index].up_down == down)
-			first_y += data->SCALE;
+			first_y += data->scale;
 		if(tan_val != 0)
 			first_x = data->player.x_pos + (first_y - data->player.y_pos) / tan_val;
-		y_step = data->SCALE;
+		y_step = data->scale;
 		if(data->rays[ray_index].up_down == up)
 			y_step *= -1;
 		if(tan_val != 0)
-			x_step = data->SCALE / tan_val;
+			x_step = data->scale / tan_val;
 		 x_step *= (data->rays[ray_index].right_left == left && x_step > 0) ? -1 : 1;
     	x_step *= (data->rays[ray_index].right_left == right && x_step < 0) ? -1 : 1;
 	
 		float h_next_x = first_x;
 		float h_next_y = first_y;
 		float y_check = first_y;
-		while(h_next_x >= 0 && h_next_x <= data->WINDOW_WIDTH&& h_next_y >= 0 && h_next_y <= data->WINDOW_HEIGHT )
+		while(h_next_x >= 0 && h_next_x <= data->window_width&& h_next_y >= 0 && h_next_y <= data->window_heigth )
 		{
 			if(data->rays[ray_index].up_down == up)	
 				y_check = h_next_y - 1;
@@ -93,15 +131,15 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 			h_next_y += y_step;
 		}
 
-		first_x = floor(data->player.x_pos / data->SCALE ) * data->SCALE;
+		first_x = floor(data->player.x_pos / data->scale ) * data->scale;
 		if(data->rays[ray_index].right_left == right)
-			first_x += data->SCALE;	
+			first_x += data->scale;	
 		first_y = data->player.y_pos + (first_x - data->player.x_pos) * tan_val;
-		x_step = data->SCALE;
+		x_step = data->scale;
 		if(data->rays[ray_index].right_left == left)
 			x_step *= -1;
 
-		y_step = data->SCALE * tan_val;
+		y_step = data->scale * tan_val;
 		y_step *= (data->rays[ray_index].up_down == up && y_step > 0) ? -1 : 1;
     	y_step *= (data->rays[ray_index].up_down == down && y_step < 0) ? -1 : 1;
 	
@@ -109,7 +147,7 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 		float v_next_y = first_y;
 		float x_check = v_next_x;
 
-		while(v_next_x >= 0 && v_next_x <= data->WINDOW_WIDTH&& v_next_y >= 0 && v_next_y <= data->WINDOW_HEIGHT )
+		while(v_next_x >= 0 && v_next_x <= data->window_width&& v_next_y >= 0 && v_next_y <= data->window_heigth )
 		{
 			if(data->rays[ray_index].right_left == left == 1)	
 				x_check = v_next_x - 1;
@@ -135,7 +173,7 @@ void cast_each_ray(t_infos *data , float ray_angle, int ray_index) // fix it
 			data->rays[ray_index].wall_y = h_next_y;
 			data->rays[ray_index].direction = horizontal;
 		}
-		data->rays[ray_index].ray_angle = ray_angle;
+	
 }
 
 

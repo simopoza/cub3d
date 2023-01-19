@@ -6,7 +6,7 @@
 /*   By: flouta <flouta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:30:53 by flouta            #+#    #+#             */
-/*   Updated: 2023/01/18 19:02:43 by flouta           ###   ########.fr       */
+/*   Updated: 2023/01/19 01:27:55 by flouta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_player(t_infos *data, t_cub *cub)
 {
-	data->player.x_pos = cub->player_pos_x * data->SCALE ;
-	data->player.y_pos = cub->player_pos_y * data->SCALE ;
+	data->player.x_pos = cub->player_pos_x * data->scale ;
+	data->player.y_pos = cub->player_pos_y * data->scale ;
 	data->player.turn_direction = 0;
 	data->player.walk_direction = 0;
 	data->player.walk_speed = 5;
@@ -34,7 +34,7 @@ void	init_player(t_infos *data, t_cub *cub)
 
 void	init_rays(t_infos *data)
 {
-	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->WINDOW_WIDTH);
+	data->rays = (t_ray *)malloc(sizeof(t_ray) * data->window_width);
 	if (!data->rays)
 		print_error("ERROR: dynamic allocation failure\n");
 	cast_all_rays(data);
@@ -42,14 +42,14 @@ void	init_rays(t_infos *data)
 
 void	init_window(t_infos *data)
 {
-	data->SCALE = 32;
-	data->WINDOW_WIDTH = 1200;
-	data->WINDOW_HEIGHT = 1200;
+	data->scale = 32;
+	data->window_width = 1200;
+	data->window_heigth = 1200;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		print_error("ERROR: mlx init failed\n");
-	data->mlx_win = mlx_new_window(data->mlx, data->WINDOW_WIDTH, \
-		data->WINDOW_HEIGHT, "Cub3d");
+	data->mlx_win = mlx_new_window(data->mlx, data->window_width, \
+		data->window_heigth, "Cub3d");
 	if (!data->mlx_win)
 		print_error("ERROR: window init failed\n");
 }
